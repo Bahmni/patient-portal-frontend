@@ -1,0 +1,10 @@
+@import "common/commonIndex";
+
+@import "~carbon-components/scss/globals/scss/styles.scss";
+
+.App {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

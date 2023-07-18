@@ -1,0 +1,74 @@
+const path = require("path");
+const cssExtract = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+const packageJson = require("./package.json");
+const dependencies = packageJson.dependencies;
+
+const commonConfig = {
+  entry: {
+    index: "./src/index.js",
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+  },
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name].[contenthash].js",
+    clean: true,
+  },
+  plugins: [
+    new cssExtract({
+      filename: "styles.css",
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.m?js/,
+        type: "javascript/auto",
+        resolve: {
+          fullySpecified: false,
+        },
+      },
+      {
+        test: /\.(ts|tsx|js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+        },
+      },
+      {
+        test: /\.css$/i,
+        exclude: /\.module\.css$/i,
+        use: [cssExtract.loader, "css-loader"],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        exclude: /\.module\.s[ac]ss$/i,
+        use: [cssExtract.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.module\.css$/i,
+        use: [
+          cssExtract.loader,
+          { loader: "css-loader", options: { modules: true } },
+        ],
+      },
+      {
+        test: /\.module\.s[ac]ss$/i,
+        use: [
+          cssExtract.loader,
+          { loader: "css-loader", options: { modules: true } },
+          "sass-loader",
+        ],
+      },
+    ],
+  },
+  devServer: {},
+};
+
+module.exports = commonConfig;
