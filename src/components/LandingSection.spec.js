@@ -11,14 +11,26 @@ test("renders landing section container", () => {
   expect(landingSectionContainer).toBeInTheDocument();
 });
 
-test("validates input for alphanumeric value", () => {
+test("validates input for alphanumeric value for desktop", () => {
   render(<LandingSection />);
-  const input = screen.getByLabelText("Enter your hospital ID");
+  const input = screen.getByTestId("text-input-desktop");
   expect(input).toBeInTheDocument();
 });
 
-test("handles click event on Get OTP button", () => {
+test("validates input for alphanumeric value for mobile", () => {
   render(<LandingSection />);
-  const getOTPButton = screen.getByText("Get OTP");
+  const input = screen.getByTestId("text-input-mobile");
+  expect(input).toBeInTheDocument();
+});
+
+test("handles click event on Get OTP button for desktop", () => {
+  render(<LandingSection />);
+  const getOTPButton = screen.getByTestId("otp-btn-desktop");
+  expect(getOTPButton).toBeInTheDocument();
+});
+
+test("handles click event on Get OTP button for mobile", () => {
+  render(<LandingSection />);
+  const getOTPButton = screen.getByTestId("otp-btn-mobile");
   expect(getOTPButton).toBeInTheDocument();
 });

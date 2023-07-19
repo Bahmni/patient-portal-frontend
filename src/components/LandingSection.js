@@ -55,6 +55,7 @@ const LandingSection = () => {
               </p>
               <div className="input__section">
                 <TextInput
+                  data-testid="text-input-desktop"
                   id="text-input-1"
                   labelText=""
                   value={id}
@@ -63,6 +64,7 @@ const LandingSection = () => {
                 />
                 <p className="error__text">{error}</p>
                 <Button
+                  data-testid="otp-btn-desktop"
                   className="otp__button primary__button"
                   onClick={submitID}
                 >
@@ -103,7 +105,8 @@ const LandingSection = () => {
                 </p>
                 <div className="input__section">
                   <TextInput
-                    id="text-input-1"
+                    data-testid="text-input-mobile"
+                    id="text-input-2"
                     labelText=""
                     value={id}
                     type="text"
@@ -111,6 +114,7 @@ const LandingSection = () => {
                   />
                   <p className="error__text">{error}</p>
                   <Button
+                    data-testid="otp-btn-mobile"
                     className="otp__button primary__button"
                     onClick={submitID}
                   >
