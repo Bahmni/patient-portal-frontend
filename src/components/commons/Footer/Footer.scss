@@ -1,0 +1,23 @@
+@import "../../../styles/variables";
+
+.footer__container {
+  bottom: 0;
+  position: relative;
+  width: 100%;
+  background-color: $primary_color;
+  padding: 1rem;
+}
+
+.bx--row.footer__row {
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+/* ------------ Media Queries ------------- */
+
+@media screen and (max-width: 480px) {
+  .bx--row.footer__row > p {
+    font-size: 0.8rem;
+  }
+}

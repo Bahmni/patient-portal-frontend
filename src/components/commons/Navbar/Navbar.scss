@@ -1,0 +1,46 @@
+@import "../../../styles/variables";
+
+.header__container.bx--header {
+  background-color: $primary_color;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.bx--header__name.header__icon {
+  color: $link_color;
+  border: none;
+  padding: 0rem 1rem;
+  &:hover {
+    color: $link_color;
+  }
+}
+
+.header__item {
+  list-style: none;
+  text-decoration: none;
+  a.bx--header__menu-item {
+    color: $link_color;
+    &:hover {
+      color: $link_color;
+      background-color: $primary_color;
+    }
+  }
+  .bx--header__menu-item {
+    border: none;
+  }
+}
+
+.header__navlinks {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  background-color: $primary_color;
+}
+
+.bx--header__menu-toggle.sidebar__icon {
+  svg {
+    fill: $link_color;
+  }
+}
