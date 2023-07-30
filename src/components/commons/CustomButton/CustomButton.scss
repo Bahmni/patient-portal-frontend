@@ -1,0 +1,10 @@
+@import "../../../styles/variables";
+
+.bx--btn--primary.primary__button {
+  background-color: $secondary_color;
+  margin-top: 1rem;
+  text-align: center;
+  &:hover {
+    background-color: $secondary_color;
+  }
+}
