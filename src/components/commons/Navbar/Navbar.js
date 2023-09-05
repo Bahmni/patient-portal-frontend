@@ -1,23 +1,22 @@
-import React, { useState } from "react";
-import {
-  Header,
-  HeaderName,
-  HeaderMenuItem,
-  HeaderNavigation,
-  SideNav,
-  SideNavItems,
-  HeaderSideNavItems,
-  HeaderMenuButton,
-  SkipToContent,
-} from "carbon-components-react";
+import React from "react";
+import { Header, HeaderMenuItem } from "carbon-components-react";
 import { Home24 } from "@carbon/icons-react";
+import { HiOutlineLogout } from "react-icons/hi";
 import "./Navbar.scss";
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import { useNavigate } from "react-router";
 
 const Navbar = () => {
-  const [isSideNavExpanded, setIsSideNavExpanded] = useState(false);
+  const { user, dispatch } = useAuthContext();
+  const navigate = useNavigate();
 
-  const onClickSideNavExpand = () => {
-    setIsSideNavExpanded(!isSideNavExpanded);
+  const navigateHome = () => {
+    navigate("/visits");
+  };
+
+  const userLogout = () => {
+    dispatch({ type: "LOGOUT" });
+    navigate("/");
   };
 
   return (
@@ -26,44 +25,17 @@ const Navbar = () => {
       className="header__container"
       aria-label="portal-header"
     >
-      <SkipToContent />
-      <HeaderMenuButton
-        className="sidebar__icon"
-        aria-label={isSideNavExpanded ? "Close menu" : "Open menu"}
-        onClick={onClickSideNavExpand}
-        isActive={isSideNavExpanded}
-        aria-expanded={isSideNavExpanded}
-      />
-      <HeaderName className="header__icon" href="/" prefix="">
-        <Home24 />
-      </HeaderName>
-      <HeaderNavigation
-        className="header__navlinks"
-        aria-label="portal-navigation"
-      >
-        <HeaderMenuItem className="header__item" href="/">
-          FAQ
-        </HeaderMenuItem>
-        <HeaderMenuItem className="header__item" href="/">
-          Contact
-        </HeaderMenuItem>
-      </HeaderNavigation>
-      <SideNav
-        aria-label="Side navigation"
-        expanded={isSideNavExpanded}
-        isPersistent={false}
-      >
-        <SideNavItems>
-          <HeaderSideNavItems>
-            <HeaderMenuItem className="header__item" href="/">
-              FAQ
-            </HeaderMenuItem>
-            <HeaderMenuItem className="header__item" href="/">
-              Contact
-            </HeaderMenuItem>
-          </HeaderSideNavItems>
-        </SideNavItems>
-      </SideNav>
+      {user ? (
+        <>
+          <HeaderMenuItem className="header__icon">
+            <Home24 onClick={() => navigateHome()} />
+          </HeaderMenuItem>
+          <HeaderMenuItem className="header__icon" onClick={() => userLogout()}>
+            <HiOutlineLogout />
+            <span>Logout</span>
+          </HeaderMenuItem>
+        </>
+      ) : null}
     </Header>
   );
 };

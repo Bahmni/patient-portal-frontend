@@ -1,0 +1,22 @@
+.field {
+  font-weight: bold;
+  color: #575757;
+  line-height: 2.5rem;
+  font-size: 16px;
+}
+
+.doc__title {
+  margin: 1rem 0rem;
+}
+
+.patient__details__comp {
+  display: none;
+}
+
+@media print {
+  .patient__details__comp {
+    display: block;
+    border: 3px double black;
+    padding: 0rem 2rem;
+  }
+}

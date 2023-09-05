@@ -16,6 +16,7 @@ const commonConfig = {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].[contenthash].js",
     clean: true,
+    publicPath: "/",
   },
   plugins: [
     new cssExtract({
@@ -80,7 +81,18 @@ const commonConfig = {
       },
     ],
   },
-  devServer: {},
+  devServer: {
+    historyApiFallback: true,
+    port: "9500",
+    proxy: {
+      "/openmrs": {
+        target: "http://localhost:8080", // Replace with your backend URL and port
+        secure: false,
+        changeOrigin: true,
+        proxyTimeout: 130000,
+      },
+    },
+  },
 };
 
 module.exports = commonConfig;
