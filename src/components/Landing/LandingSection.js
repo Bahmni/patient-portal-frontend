@@ -1,18 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import { Grid, Row, Column, TextInput } from "carbon-components-react";
-import Toaster from "../commons/Toaster/Toaster";
 import CustomButton from "../commons/CustomButton/CustomButton";
 import doctorImg from "../../assets/images/doctor.png";
 import "./LandingSection.scss";
+import { getPatientIdentifier, callGet } from "../../utils/api-utils";
+import { ERROR_MESSAGES } from "../../utils/constants";
 
 const LandingSection = () => {
   const [error, setError] = useState("");
   const [id, setId] = useState("");
-  const [showToaster, setShowToaster] = useState(false);
-
-  const handleBtnClose = () => {
-    setShowToaster(false);
-  };
+  const navigate = useNavigate();
 
   const checkInput = (val) => {
     setError("");
@@ -23,14 +21,24 @@ const LandingSection = () => {
     return /^[a-zA-Z0-9]+$/.test(str);
   }
 
-  const submitID = (e) => {
+  const submitID = async (e) => {
     e.preventDefault();
-    if (!isAlphanumeric(id)) {
-      setError("Only alphanumeric input is allowed");
+    if (id.length < 5 || !isAlphanumeric(id)) {
+      setError(ERROR_MESSAGES.ID);
     } else {
-      setError("");
-      setId("");
-      setShowToaster(true);
+      const url = getPatientIdentifier(id);
+      const res = await callGet(url);
+      if (res.status === 200) {
+        let patientIdentifier = res.data.patientIdentifier;
+        let sessionUuid = res.data.sessionUuid;
+        localStorage.setItem(
+          "Patient",
+          JSON.stringify({ patientIdentifier, sessionUuid })
+        );
+        setError("");
+        setId("");
+        navigate("/verify");
+      }
     }
   };
 
@@ -48,7 +56,8 @@ const LandingSection = () => {
             </p>
             <div className="hero__form">
               <p>
-                Enter your Patient ID to <span>get started</span>
+                Enter the Patient ID linked to your phone to{" "}
+                <span>get started</span>
               </p>
               <div className="input__section">
                 <TextInput
@@ -57,7 +66,9 @@ const LandingSection = () => {
                   labelText=""
                   value={id}
                   type="text"
+                  placeholder="Enter Patient ID"
                   onChange={(event) => checkInput(event.target.value)}
+                  maxLength={10}
                 />
                 <p className="error__text">{error}</p>
                 <CustomButton text={"Get OTP"} onClick={submitID} />
@@ -115,15 +126,6 @@ const LandingSection = () => {
           </Column>
         </Row>
       </Grid>
-
-      {showToaster && (
-        <Toaster
-          kind={"success"}
-          role={"success"}
-          title={"OTP sent on registered mobile number"}
-          onClose={handleBtnClose}
-        />
-      )}
     </Grid>
   );
 };

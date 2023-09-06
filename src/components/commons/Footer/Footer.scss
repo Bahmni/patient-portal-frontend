@@ -14,6 +14,12 @@
   margin-bottom: 0.5rem;
 }
 
+.bx--link.link,
+.bx--link:visited.link {
+  color: $link_color;
+  text-decoration: underline;
+}
+
 /* ------------ Media Queries ------------- */
 
 @media screen and (max-width: 480px) {
