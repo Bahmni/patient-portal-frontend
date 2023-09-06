@@ -36,11 +36,11 @@ function RecordTemplate({ docName, children }) {
       </div>
       <div ref={ref} className="template__body">
         <h4>{docName}</h4>
-        {/* Nest children between opening and closing tags */}
-        <PreviewPDF isOpen={modalIsOpen} closeModal={closeModal}>
-          {children}
-        </PreviewPDF>
+        {children}
       </div>
+      <PreviewPDF isOpen={modalIsOpen} closeModal={closeModal}>
+        {children}
+      </PreviewPDF>
     </div>
   );
 }

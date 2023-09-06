@@ -7,8 +7,6 @@ import "@testing-library/jest-dom/extend-expect";
 test("renders landing section container", () => {
   render(
     <MemoryRouter>
-      {" "}
-      {/* Wrap your component in MemoryRouter */}
       <LandingSection />
     </MemoryRouter>
   );
@@ -21,8 +19,6 @@ test("renders landing section container", () => {
 test("validates input for alphanumeric value for desktop", () => {
   render(
     <MemoryRouter>
-      {" "}
-      {/* Wrap your component in MemoryRouter */}
       <LandingSection />
     </MemoryRouter>
   );
@@ -33,8 +29,6 @@ test("validates input for alphanumeric value for desktop", () => {
 test("validates input for alphanumeric value for mobile", () => {
   render(
     <MemoryRouter>
-      {" "}
-      {/* Wrap your component in MemoryRouter */}
       <LandingSection />
     </MemoryRouter>
   );
@@ -45,8 +39,6 @@ test("validates input for alphanumeric value for mobile", () => {
 test("handles click event on Get OTP button", () => {
   render(
     <MemoryRouter>
-      {" "}
-      {/* Wrap your component in MemoryRouter */}
       <LandingSection />
     </MemoryRouter>
   );
